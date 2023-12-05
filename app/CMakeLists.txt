@@ -1,3 +1,5 @@
+# app
+
 add_subdirectory(src)
 
 target_link_libraries(main PRIVATE core)
