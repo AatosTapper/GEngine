@@ -4,6 +4,6 @@
 
 int main()
 {
-
+    GEng::init();
     return 0;
 }

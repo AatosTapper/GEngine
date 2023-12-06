@@ -1,5 +1,8 @@
 #pragma once
 
-#include "../src/Bruh/Bruh.h"
+#include "../src/Util/Util.h"
 
-extern void test_core();
+namespace GEng
+{
+    extern void init();
+}

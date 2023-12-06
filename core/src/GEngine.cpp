@@ -1,8 +1,14 @@
 #include "../include/GEngine.h"
 
-#include <stdio.h>
+#include <iostream>
 
-void test_core()
+namespace GEng
 {
-    printf("core should work\n");
+    void init()
+    {
+        LOG("Initializing GEngine");
+        TRACK_PERFORMANCE("Init test", {
+            // DO SOMETHING
+        });
+    }
 }
