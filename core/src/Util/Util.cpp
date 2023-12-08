@@ -1,6 +1,6 @@
 #include "Util.h"
 
-namespace GEng
+namespace geng
 {
     
 }

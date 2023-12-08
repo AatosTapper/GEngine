@@ -40,8 +40,8 @@
         INFO(message << " - Duration: " << duration << " microseconds"); \
     } while (0)
 
-namespace GEng
+namespace geng
 {
-    
+
 }
 
