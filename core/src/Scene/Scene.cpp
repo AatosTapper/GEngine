@@ -48,7 +48,7 @@ namespace geng
 
         for (auto &system : custom_systems)
         {
-            system.update(); // this is slow AF but can't think of any other way
+            system.update(&ec_manager); // this is slow AF but can't think of any other way
         }
     }
 }
