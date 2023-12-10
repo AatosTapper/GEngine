@@ -3,25 +3,42 @@
 #include "../Util/Util.h"
 #include "../Components/Components.h"
 
+#include <string>
+
 namespace geng
 {
-    void scene_init(Scene *scene)
-    {
-        ASSERT(scene, "Can't init a null scene.");
+    static bool scene_initialized = false;
+    static bool is_first_update = true;
 
-        Entity e1 = scene->ec_manager.add_entity();
-        Entity e2 = scene->ec_manager.add_entity();
-        Entity e3 = scene->ec_manager.add_entity();
-        Entity e4 = scene->ec_manager.add_entity();
-        scene->ec_manager.add_component<PositionComponent>(e1, PositionComponent(1));
-        scene->ec_manager.add_component<PositionComponent>(e2, PositionComponent(2));
-        scene->ec_manager.add_component<PositionComponent>(e3, PositionComponent(3));
-        scene->ec_manager.add_component<PositionComponent>(e4, PositionComponent(4));
+    Scene::Scene()
+    {
+        Entity e1 = ec_manager.add_entity();
+
+        ec_manager.add_component<PositionComponent>(e1, PositionComponent(1));
+        ec_manager.add_component<float>(e1, 1.0f);
+        ec_manager.add_component<std::string>(e1, "bruh");
+
+        scene_initialized = true;
     }
 
-    void scene_update(Scene *scene)
+    void Scene::update()
     {
-        auto position_components = scene->ec_manager.get_all_components<PositionComponent>();
-        position_update(position_components);
+        auto position_components = ec_manager.get_all_components<PositionComponent>();
+        position_system_update(position_components);
+
+        if (is_first_update)
+        {
+            ec_manager.remove_component<PositionComponent>(Entity{0, 0});
+            ec_manager.remove_component<float>(Entity{0, 0});
+            ec_manager.remove_component<std::string>(Entity{0, 0});
+            ec_manager.remove_entity(Entity{0, 0});
+
+            is_first_update = false;
+        }   
+    }
+
+    bool Scene::check_for_init()
+    {
+        return scene_initialized;
     }
 }

@@ -1,15 +1,21 @@
 #pragma once
 
 #include "../ECS/ECS.h"
+#include "../Systems/Systems.h"
+
+#include <vector>
 
 namespace geng
 {
-    typedef struct Scene
+    class Scene
     {
-        ECManager ec_manager;
-    }
-    Scene;
+    public:
+        Scene();
 
-    extern void scene_init(Scene *scene);
-    extern void scene_update(Scene *scene);
+        ECManager ec_manager;
+        std::vector<CustomSystem> custom_systems;
+
+        void update();
+        bool check_for_init();
+    };
 }

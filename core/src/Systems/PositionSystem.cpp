@@ -1,13 +1,14 @@
-#include "Position.h"
+#include "PositionSystem.h"
 
 #include "../Util/Util.h"
 
 namespace geng
 {
-    PositionComponent::PositionComponent(float data) : placeholder_data(data) {}
-
-    void position_update(std::vector<PositionComponent> *components)
+    void position_system_update(std::vector<PositionComponent> *components)
     {
+        if (components == nullptr)
+            return;
+            
         for (auto &component : *components)
         {   
             // TODO: do something

@@ -4,20 +4,22 @@
 
 namespace geng
 {
-    void init()
+    static bool inited = false;
+
+    GEngine::GEngine()
     {
-        LOG("Initializing GEngine");
-        TRACK_PERFORMANCE("Init test", {
-            // DO SOMETHING
-        });
+        inited = true;
     }
 
-    void run(Scene *active_scene)
+    void GEngine::run(Scene *active_scene)
     {
+        ASSERT(inited, "GEngine must be initialized before running.");
+        ASSERT(active_scene->check_for_init(), "Scene must be initialized before running.");
+
         // TODO: start three threads for rendering, audio and logic
-        for (uint32_t i = 0; i < 20; i++)
+        for (uint32_t i = 0; i < 10; i++)
         {
-            scene_update(active_scene);
+            active_scene->update();
         }
     }
 }

@@ -4,12 +4,14 @@
 
 int main()
 {
-    geng::Scene *scene = new geng::Scene();
-    geng::init();
+    using namespace geng;
+    GEngine engine;
+    Scene scene;
+    
+    Entity entity1 = scene.ec_manager.add_entity();
+    scene.ec_manager.add_component<PositionComponent>(entity1, PositionComponent(3.14159f));
 
-    geng::scene_init(scene);
-    geng::run(scene);
+    engine.run(&scene);
 
-    delete scene;
     return 0;
 }
