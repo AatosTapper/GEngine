@@ -1,2 +1,0 @@
-add_library(PositionComponent PositionComponent.cpp PositionComponent.h)
-target_include_directories(PositionComponent PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

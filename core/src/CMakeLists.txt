@@ -6,8 +6,5 @@ target_link_libraries(core PRIVATE Util)
 add_subdirectory(Scene)
 target_link_libraries(core PRIVATE Scene)
 
-add_subdirectory(Components)
-target_link_libraries(core PRIVATE PositionComponent)
-
 add_subdirectory(Systems)
 target_link_libraries(core PRIVATE PositionSystem)
