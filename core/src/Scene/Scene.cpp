@@ -26,8 +26,7 @@ namespace geng
 
     void Scene::m_update_systems()
     {
-        auto position_components = ec_manager.get_all_components<PositionComponent>();
-        position_system_update(position_components);
+        position_system_update(ec_manager.get_all_components<PositionComponent>());
 
         for (auto &system : custom_systems)
         {
