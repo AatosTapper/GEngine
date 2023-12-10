@@ -23,8 +23,7 @@ namespace geng
 
     void Scene::update()
     {
-        auto position_components = ec_manager.get_all_components<PositionComponent>();
-        position_system_update(position_components);
+        m_update_systems();
 
         if (is_first_update)
         {
@@ -40,5 +39,16 @@ namespace geng
     bool Scene::check_for_init()
     {
         return scene_initialized;
+    }
+
+    void Scene::m_update_systems()
+    {
+        auto position_components = ec_manager.get_all_components<PositionComponent>();
+        position_system_update(position_components);
+
+        for (auto &system : custom_systems)
+        {
+            system.update(); // this is slow AF but can't think of any other way
+        }
     }
 }

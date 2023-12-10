@@ -17,5 +17,8 @@ namespace geng
 
         void update();
         bool check_for_init();
+
+    private:
+        void m_update_systems();
     };
 }
