@@ -63,7 +63,7 @@ namespace geng
             if (m_entity_indices.find(entity.id) == m_entity_indices.end() 
                 || m_entity_indices[entity.id].find(component_type_hash) == m_entity_indices[entity.id].end()) 
             {
-                ERR("Component not found for the specified entity: " << entity.id << "and type: " << typeid(T).name());
+                ERR("Component of type [ " << typeid(T).name() << " ] was not found for the specified entity [ " << entity.id << " ]");
                 return nullptr;
             }
             size_t index = m_entity_indices[entity.id][component_type_hash];

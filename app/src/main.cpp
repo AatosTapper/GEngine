@@ -2,6 +2,7 @@
 
 #include "../../core/include/GEngine.h"
 
+
 void test_system1(geng::ECManager *ec_manager)
 {
     geng::Entity new_ent = ec_manager->add_entity();
