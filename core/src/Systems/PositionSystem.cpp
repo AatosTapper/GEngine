@@ -12,7 +12,7 @@ namespace geng
         for (auto &component : *components)
         {   
             // TODO: do something
-            LOG("Component value: " << component.placeholder_data);
+            //LOG("Component value: " << component.placeholder_data);
         }
     }
 }

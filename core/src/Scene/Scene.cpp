@@ -14,6 +14,11 @@ namespace geng
         scene_initialized = true;
     }
 
+    void Scene::add_custom_system(void (*func)(ECManager*))
+    {
+        m_custom_systems.push_back(func);
+    }
+
     void Scene::update()
     {
         m_update_systems();
@@ -28,9 +33,9 @@ namespace geng
     {
         position_system_update(ec_manager.get_all_components<PositionComponent>());
 
-        for (auto &system : custom_systems)
+        for (auto system : m_custom_systems)
         {
-            system.update(&ec_manager); // this is slow AF but can't think of any other way
+            system(&ec_manager);
         }
     }
 }

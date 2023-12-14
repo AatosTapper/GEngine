@@ -13,12 +13,14 @@ namespace geng
         Scene();
 
         ECManager ec_manager;
-        std::vector<CustomSystem> custom_systems;
-
+        
+        void add_custom_system(void (*func)(ECManager*));
         void update();
         bool check_for_init();
 
     private:
+        std::vector<void (*)(ECManager*)> m_custom_systems;
+
         void m_update_systems();
     };
 }
