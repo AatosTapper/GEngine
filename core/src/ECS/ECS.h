@@ -77,6 +77,7 @@ namespace geng
             const size_t component_type_hash = typeid(T).hash_code();
             if (m_components.find(component_type_hash) == m_components.end()) 
             {
+                INFO("Returned a nullptr, remember to handle it.");
                 return nullptr;
             }
             return &dynamic_cast<ComponentArray<T>&>(*m_components.at(component_type_hash)).data;
