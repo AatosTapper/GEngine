@@ -8,3 +8,4 @@ target_link_libraries(core PRIVATE Scene)
 
 add_subdirectory(Systems)
 target_link_libraries(core PRIVATE PositionSystem)
+target_link_libraries(core PRIVATE TimerSystem)

@@ -17,7 +17,7 @@ namespace geng
         ASSERT(active_scene->check_for_init(), "Scene must be initialized before running.");
 
         // TODO: start three threads for rendering, audio and logic
-        for (uint32_t i = 0; i < 10; i++)
+        for (uint32_t i = 0; i < 20; i++)
         {
             active_scene->update();
         }

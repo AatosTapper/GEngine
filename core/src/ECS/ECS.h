@@ -72,12 +72,13 @@ namespace geng
 
         // Returns nullptr if no components of the type are found
         template <typename T>
-        std::vector<T> *get_all_components() const 
+        std::vector<T> *get_all_components(bool silence_warning = false) const 
         {
             const size_t component_type_hash = typeid(T).hash_code();
             if (m_components.find(component_type_hash) == m_components.end()) 
             {
-                INFO("Returned a nullptr, remember to handle it.");
+                if (!silence_warning)
+                    INFO("Returned a nullptr, remember to handle it.");
                 return nullptr;
             }
             return &dynamic_cast<ComponentArray<T>&>(*m_components.at(component_type_hash)).data;
