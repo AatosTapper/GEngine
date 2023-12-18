@@ -1,6 +1,8 @@
 #include "../include/GEngine.h"
 
-#include <iostream>
+#include "../Runtime/Runtime.h"
+
+#include <memory>
 
 namespace geng
 {
@@ -16,10 +18,6 @@ namespace geng
         ASSERT(inited, "GEngine must be initialized before running.");
         ASSERT(active_scene->check_for_init(), "Scene must be initialized before running.");
 
-        // TODO: start three threads for rendering, audio and logic
-        for (uint32_t i = 0; i < 20; i++)
-        {
-            active_scene->update();
-        }
+        std::unique_ptr<Runtime> runtime = std::make_unique<Runtime>(active_scene);        
     }
 }
