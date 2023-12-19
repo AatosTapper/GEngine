@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Util/Util.h"
+#include "Entity.h"
 
 #include <iostream>
 #include <unordered_map>
@@ -9,15 +10,7 @@
 #include <typeindex>
 
 namespace geng
-{
-    // Type can be some user defined enum for example.
-    // It can't be changed afterwards.
-    struct Entity
-    {
-        uint32_t id;
-        uint32_t type; 
-    };
-
+{   
     class BaseComponent 
     {
     public:
@@ -56,6 +49,11 @@ namespace geng
             m_entity_indices[entity.id][component_type_hash] = component_array.size() - 1;
         }
 
+        std::vector<Entity> *get_all_entities()
+        {
+            return &m_entities;
+        }
+
         template <typename T>
         T *get_component(Entity entity) 
         {
@@ -70,16 +68,14 @@ namespace geng
             return &dynamic_cast<ComponentArray<T>&>(*m_components[component_type_hash]).data[index];
         }
 
-        // Returns nullptr if no components of the type are found
+        // Creates a vector for the component if it isn't found
         template <typename T>
-        std::vector<T> *get_all_components(bool silence_warning = false) const 
+        std::vector<T> *get_all_components() 
         {
             const size_t component_type_hash = typeid(T).hash_code();
             if (m_components.find(component_type_hash) == m_components.end()) 
             {
-                if (!silence_warning)
-                    INFO("Returned a nullptr, remember to handle it.");
-                return nullptr;
+                m_components[component_type_hash] = std::make_unique<ComponentArray<T>>();
             }
             return &dynamic_cast<ComponentArray<T>&>(*m_components.at(component_type_hash)).data;
         }

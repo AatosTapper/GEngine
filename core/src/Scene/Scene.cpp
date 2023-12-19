@@ -31,8 +31,8 @@ namespace geng
 
     void Scene::m_update_systems()
     {
-        timer_system_update(ec_manager.get_all_components<TimerComponent>(true));
-        position_system_update(ec_manager.get_all_components<PositionComponent>(true));
+        timer_system_update(ec_manager.get_all_components<TimerComponent>());
+        position_system_update(ec_manager.get_all_components<PositionComponent>());
 
         for (auto system : m_custom_systems)
         {

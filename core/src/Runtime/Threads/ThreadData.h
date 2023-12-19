@@ -2,6 +2,7 @@
 
 #include "../../Components/RenderComponent.h"
 #include "../../Components/PositionComponent.h"
+#include "../../ECS/Entity.h"
 
 #include <iostream>
 #include <mutex>
@@ -18,8 +19,9 @@ namespace geng
 
     struct RenderData
     {
-        std::vector<RenderComponent> *render_components;
-        std::vector<PositionComponent> *position_components;
+        std::vector<Entity> entities;
+        std::vector<RenderComponent> render_components;
+        std::vector<PositionComponent> position_components;
     };
 
     struct AudioThreadData
