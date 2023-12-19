@@ -11,7 +11,7 @@
 
 namespace geng
 {
-    static void changeRenderData(RenderThreadData *render_thread_data, Scene *active_scene)
+    static void change_render_data(RenderThreadData *render_thread_data, Scene *active_scene)
     {
         {            
             std::unique_lock<std::mutex> render_lock(render_thread_data->mutex);
@@ -28,7 +28,7 @@ namespace geng
         render_thread_data->cv.notify_one();
     }
 
-    static void changeAudioData(AudioThreadData *audio_thread_data, Scene *active_scene)
+    static void change_audio_data(AudioThreadData *audio_thread_data, Scene *active_scene)
     {
         {
             std::unique_lock<std::mutex> audio_lock(audio_thread_data->mutex);
@@ -62,8 +62,8 @@ namespace geng
                 break;
             }
 
-            changeAudioData(audio_thread_data, active_scene);
-            changeRenderData(render_thread_data, active_scene);
+            change_render_data(render_thread_data, active_scene);
+            change_audio_data(audio_thread_data, active_scene);
         }
     }
 }
