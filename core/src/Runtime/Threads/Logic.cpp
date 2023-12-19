@@ -1,6 +1,7 @@
 #include "Logic.h"
 
 #include "../../Util/Util.h"
+#include "../../Components/TimerComponent.h"
 
 #include <chrono>
 #include <thread>
@@ -41,16 +42,16 @@ namespace geng
 
     void logic_thread(Scene *active_scene, RenderThreadData *render_thread_data, AudioThreadData *audio_thread_data, std::atomic<bool> &stop_threads)
     {
-        uint32_t iteration = 0;
         THREAD_LOG_STR("Logic Thread Run");
         while (!stop_threads)
         {
             // TODO: gameloop with glfw windowing
 
+            active_scene->update();
 
             //std::this_thread::sleep_for(std::chrono::milliseconds(16));
 
-            if (iteration >= 10)
+            if (active_scene->ec_manager.get_component<TimerComponent>(Entity{0, 0})->status == TimerComponent::status::DONE)
             {
                 audio_thread_data->stop_thread = true;
                 render_thread_data->stop_thread = true;
@@ -63,7 +64,6 @@ namespace geng
 
             changeAudioData(audio_thread_data, active_scene);
             changeRenderData(render_thread_data, active_scene);
-            iteration++;
         }
     }
 }

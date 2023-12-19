@@ -24,7 +24,7 @@ void test_system(ECManager *ec_manager)
 
 int main()
 {
-    scene.ec_manager.add_component<TimerComponent>(player, TimerComponent(2));
+    scene.ec_manager.add_component<TimerComponent>(player, TimerComponent(20));
     scene.add_custom_system(test_system);
 
     engine.run(&scene);

@@ -26,6 +26,8 @@ namespace geng
         logic.join();
         render.join();
         audio.join();
+
+        LOG("Threads joined");
     }
 
     Runtime::~Runtime()
