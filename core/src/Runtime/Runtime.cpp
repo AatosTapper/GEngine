@@ -37,11 +37,7 @@ namespace geng
 
     void Runtime::m_init_thread_data(Scene *active_scene, RenderThreadData *render_thread_data, AudioThreadData *audio_thread_data)
     {
-        render_thread_data->data = { 
-            *active_scene->ec_manager.get_all_entities(),
-            *active_scene->ec_manager.get_all_components<RenderComponent>(), 
-            *active_scene->ec_manager.get_all_components<PositionComponent>() 
-        };
+        sort_render_data(active_scene, render_thread_data);
 
         render_thread_data->data_changed = false;
         render_thread_data->stop_thread = false;

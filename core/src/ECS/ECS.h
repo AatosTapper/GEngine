@@ -3,6 +3,7 @@
 #include "../Util/Util.h"
 #include "Entity.h"
 
+#include <stdbool.h>
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -37,7 +38,7 @@ namespace geng
         }
 
         template <typename T>
-        void add_component(Entity entity, T component) 
+        void add_component(const Entity &entity, T component) 
         {
             const size_t component_type_hash = typeid(T).hash_code();
             if (m_components.find(component_type_hash) == m_components.end()) 
@@ -48,6 +49,18 @@ namespace geng
             component_array.push_back(component);
             m_entity_indices[entity.id][component_type_hash] = component_array.size() - 1;
         }
+        
+        template <typename T>
+        bool has_component(const Entity &entity)
+        {
+            const size_t component_type_hash = typeid(T).hash_code();
+            if (m_entity_indices.find(entity.id) == m_entity_indices.end()
+                || m_entity_indices[entity.id].find(component_type_hash) == m_entity_indices[entity.id].end()) 
+            {
+                return false;
+            }
+            return true;
+        }
 
         std::vector<Entity> *get_all_entities()
         {
@@ -55,13 +68,32 @@ namespace geng
         }
 
         template <typename T>
-        T *get_component(Entity entity) 
+        int64_t get_component_index(const Entity &entity, bool silence_warnings = false)
+        {
+            const size_t component_type_hash = typeid(T).hash_code();
+            auto entity_iter = m_entity_indices.find(entity.id);
+            if (entity_iter != m_entity_indices.end()) 
+            {
+                auto component_iter = entity_iter->second.find(component_type_hash);
+                if (component_iter != entity_iter->second.end()) 
+                {
+                    return component_iter->second;
+                }
+            }
+            if (!silence_warnings)
+                WARN("Component of type [ " << typeid(T).name() << " ] doesn't exist for entity [ " << entity.id << " ]");
+            return -1;
+        }
+
+        template <typename T>
+        T *get_component(const Entity &entity, bool silence_warnings = false) 
         {
             const size_t component_type_hash = typeid(T).hash_code();
             if (m_entity_indices.find(entity.id) == m_entity_indices.end() 
                 || m_entity_indices[entity.id].find(component_type_hash) == m_entity_indices[entity.id].end()) 
             {
-                ERR("Component of type [ " << typeid(T).name() << " ] was not found for the specified entity [ " << entity.id << " ]");
+                if (!silence_warnings)
+                    WARN("Component of type [ " << typeid(T).name() << " ] doesn't exist for entity [ " << entity.id << " ]");
                 return nullptr;
             }
             size_t index = m_entity_indices[entity.id][component_type_hash];
@@ -91,7 +123,6 @@ namespace geng
                     static_cast<void>(entry);
                     break;
                 }
-
                 m_entity_indices.erase(entity.id);
             }
 
@@ -112,7 +143,7 @@ namespace geng
             m_entities.erase(m_entities.begin() + deleted_entity_index);
 
             if (has_components)
-                ERR("Removing entity doesn't automatically remove it's components. \n  Existing components detected for entity.id[" << entity.id << "]");
+                ERR("Removing entity doesn't automatically remove it's components. \n  Existing components detected for entity [ " << entity.id << " ]");
         }
 
         template <typename T>

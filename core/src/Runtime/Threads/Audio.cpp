@@ -11,7 +11,7 @@ namespace geng
 {
     static void process_audio(AudioData *data)
     {
-        THREAD_LOG_STR("Processing audio");
+        //THREAD_LOG_STR("Processing audio");
     }
 
     void audio_thread(AudioThreadData *audio_thread_data, std::atomic<bool> &stop_threads)

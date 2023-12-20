@@ -2,7 +2,7 @@
 
 #include "../../Components/RenderComponent.h"
 #include "../../Components/PositionComponent.h"
-#include "../../ECS/Entity.h"
+#include "../../Scene/Scene.h"
 
 #include <iostream>
 #include <mutex>
@@ -19,7 +19,6 @@ namespace geng
 
     struct RenderData
     {
-        std::vector<Entity> entities;
         std::vector<RenderComponent> render_components;
         std::vector<PositionComponent> position_components;
     };
@@ -41,4 +40,6 @@ namespace geng
         RenderData data;
         bool data_changed;
     };
+
+    extern void sort_render_data(Scene *active_scene, RenderThreadData *render_thread_data);
 }

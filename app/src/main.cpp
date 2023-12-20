@@ -12,20 +12,21 @@ Entity another_entity = scene.ec_manager.add_entity();
 void test_system(ECManager *ec_manager)
 {
     TimerComponent *timer = ec_manager->get_component<TimerComponent>(player);
-    
     LOG("Timer status: " << timer_status_str(timer) << " tick: " << timer->length_ticks);
-
-    if (timer->status == TimerComponent::status::WAITING)
-    {
-        LOG("New timer started.");
-        timer->length_ticks = 7;
-    }
 }
 
 int main()
 {
     scene.ec_manager.add_component<TimerComponent>(player, TimerComponent(20));
-    scene.add_custom_system(test_system);
+
+    scene.ec_manager.add_component<RenderComponent>(another_entity, RenderComponent());
+    scene.ec_manager.add_component<PositionComponent>(oth_entity, PositionComponent());
+    scene.ec_manager.add_component<PositionComponent>(player, PositionComponent());
+    scene.ec_manager.add_component<RenderComponent>(player, RenderComponent());
+    scene.ec_manager.add_component<RenderComponent>(oth_entity, RenderComponent());
+    scene.ec_manager.add_component<PositionComponent>(another_entity, PositionComponent());
+
+    //scene.add_custom_system(test_system);
 
     engine.run(&scene);
 

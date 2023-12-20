@@ -15,14 +15,7 @@ namespace geng
     {
         {            
             std::unique_lock<std::mutex> render_lock(render_thread_data->mutex);
-            
-            // Copy the needed components to the render engine
-            render_thread_data->data = { 
-                *active_scene->ec_manager.get_all_entities(),
-                *active_scene->ec_manager.get_all_components<RenderComponent>(), 
-                *active_scene->ec_manager.get_all_components<PositionComponent>() 
-            };
-
+            sort_render_data(active_scene, render_thread_data);
             render_thread_data->data_changed = true;
         }
         render_thread_data->cv.notify_one();

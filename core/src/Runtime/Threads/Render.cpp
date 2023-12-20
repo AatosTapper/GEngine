@@ -11,7 +11,7 @@ namespace geng
 {
     static void render(RenderData *data)
     {
-        THREAD_LOG_STR("Rendering");
+        //THREAD_LOG_STR("Rendering");
     }
 
     void render_thread(RenderThreadData *render_thread_data, std::atomic<bool> &stop_threads)
