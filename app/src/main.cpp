@@ -17,7 +17,7 @@ void test_system(ECManager *ec_manager)
 
 int main()
 {
-    scene.ec_manager.add_component<TimerComponent>(player, TimerComponent(20));
+    scene.ec_manager.add_component<TimerComponent>(player, TimerComponent(50));
 
     scene.ec_manager.add_component<RenderComponent>(another_entity, RenderComponent());
     scene.ec_manager.add_component<PositionComponent>(oth_entity, PositionComponent());
