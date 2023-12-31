@@ -1,11 +1,11 @@
-#include "ThreadData.h"
+#include "RenderData.h"
 
-#include "../../ECS/ECS.h"
-#include "../../Util/Util.h"
+#include "../ECS/ECS.h"
+#include "../Util/Util.h"
 
 namespace geng
 {
-    void sort_render_data(Scene *active_scene, RenderThreadData *render_thread_data)
+    void sort_render_data(Scene *active_scene, RenderData *render_data)
     {
         const std::vector<RenderComponent> render_components = *active_scene->ec_manager.get_all_components<RenderComponent>();
         const std::vector<PositionComponent> position_components = *active_scene->ec_manager.get_all_components<PositionComponent>();
@@ -32,9 +32,7 @@ namespace geng
         ASSERT(!(num_incorrect_entities > 0), "[ " << num_incorrect_entities << " ] entities had insufficient components for rendering." 
         << "\n(doesn't count entities with no rendering component)");
 
-        render_thread_data->data = { 
-            render_components_sorted, 
-            position_components_sorted 
-        };
+        render_data->render_components = render_components_sorted;
+        render_data->position_components = position_components_sorted;
     }
 }

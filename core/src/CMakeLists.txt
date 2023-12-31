@@ -12,7 +12,7 @@ target_link_libraries(core PRIVATE TimerSystem)
 
 add_subdirectory(Runtime)
 target_link_libraries(core PRIVATE Runtime)
-target_link_libraries(core PRIVATE Logic)
-target_link_libraries(core PRIVATE Render)
-target_link_libraries(core PRIVATE Audio)
-target_link_libraries(core PRIVATE ThreadData)
+
+add_subdirectory(Renderer)
+target_link_libraries(core PRIVATE Renderer)
+target_link_libraries(core PRIVATE RenderData)
