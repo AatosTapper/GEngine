@@ -21,7 +21,8 @@ namespace geng
         while(!m_renderer->get_window_should_close())
         {
             sort_render_data(active_scene, &render_data);
-            m_renderer->render_frame(&render_data);
+            //m_renderer->render_frame(&render_data);
+            WARN("Renderer is commented out in the gameloop");
         }
     }
 }

@@ -1,9 +1,11 @@
 #pragma once
 
+#include "../../dep/glm/glm.hpp"
+
 namespace geng
 {
     struct PositionComponent
     {
-        float placeholder_data;
+        glm::vec3 cord;
     };
 }
